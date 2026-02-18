@@ -33,6 +33,7 @@ ros2_control_demo/
   - `controller_manager`
   - `ros2_control`
   - `ros2_controllers`
+  - `teleop_twist_keyboard`
 
 ## Build
 
@@ -69,6 +70,20 @@ This launch starts:
 - `diff_drive_controller`
 - `rviz2`
 
+### 3. Keyboard Teleop for Diff Drive Controller (Recommended)
+
+In a new terminal (while full bringup is running):
+
+```bash
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel -p stamped:=true
+```
+
+This starts `teleop_twist_keyboard` with:
+- Remap: `/cmd_vel` -> `/diff_drive_controller/cmd_vel`
+- Parameter: `stamped:=true`
+
 ## Useful Checks
 
 ```bash
@@ -87,10 +102,6 @@ ros2 topic list | grep diff_drive
 
 ## Troubleshooting
 
-- RViz2 TF errors like `No transform from [right_wheel_link] to [base_footprint]`:
-  - Ensure `ros2_control_node` receives the same `robot_description` as `robot_state_publisher`.
-  - Ensure `joint_state_broadcaster` is active and `/joint_states` contains wheel joints.
-
 - Launch file changes not reflected:
   - Rebuild and re-source:
     ```bash
@@ -102,4 +113,3 @@ ros2 topic list | grep diff_drive
 
 - `.gitignore` excludes generated ROS 2 workspace artifacts (`build/`, `install/`, `log/`) and editor/system files.
 - `package.xml` files still contain placeholder description/license fields; update them before publishing.
-
