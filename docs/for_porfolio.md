@@ -3,7 +3,7 @@
 ## Title
 ROS 2 Differential Drive Robot: From URDF Modeling to `ros2_control` Bringup
 
-`[Image placeholder: Final RViz view showing robot model, TF tree, and controller-driven wheel states]`
+![Final RViz view](assets/images/urdf_rviz_model.png)
 
 ## Problem Statement
 The goal of this demo is to build a complete but minimal ROS 2 pipeline for a differential-drive mobile robot that can:
@@ -30,7 +30,7 @@ Runtime architecture in full bringup:
 6. RViz2 visualizes robot and transforms.
 7. `teleop_twist_keyboard` publishes stamped velocity commands to `/diff_drive_controller/cmd_vel` (invoked with `ros2 run` for reliable keyboard stdin handling).
 
-`[Image placeholder: Node graph with topics/services between robot_state_publisher, controller_manager, and RViz2]`
+![Runtime node graph](assets/images/arch_node_graph.png)
 
 ## Technical Implementation
 ### Software Stack
@@ -85,9 +85,13 @@ Useful runtime checks:
 - `ros2 topic echo /joint_states`
 - `ros2 topic list | grep diff_drive`
 
-`[Image placeholder: Terminal screenshot of active controllers and topic checks]`
+![Active controllers](assets/images/controllers_active_terminal.png)
+![Topic checks](assets/images/topics_check_terminal.png)
 
 ## Reproducibility
+Environment used for development/testing:
+- WSL2 (Ubuntu + ROS 2 Humble)
+
 From workspace root:
 
 ```bash
@@ -123,7 +127,7 @@ Key files for replication:
 - `src/my_robot_bringup/config/my_robot_controllers.yaml`
 - `src/my_robot_bringup/launch/my_robot.launch.xml`
 
-`[Image placeholder: Step-by-step setup screenshot collage (build, source, launch)]`
+![Build and setup steps](assets/images/repro_build_steps.png)
 
 ## What to Improve
 - Replace placeholder metadata in `package.xml` (description/license/versioning discipline).

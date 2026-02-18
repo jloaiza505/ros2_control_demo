@@ -21,9 +21,12 @@ ros2_control_demo/
 └── log/        # generated
 ```
 
+![RViz robot model](docs/assets/images/urdf_rviz_model.png)
+
 ## Prerequisites
 
 - Ubuntu with ROS 2 Humble installed
+- Developed and tested on WSL2 (Ubuntu + ROS 2 Humble)
 - `colcon` available
 - ROS 2 packages used by this workspace:
   - `xacro`
@@ -91,6 +94,17 @@ ros2 control list_controllers
 ros2 topic echo /joint_states
 ros2 topic list | grep diff_drive
 ```
+
+![Controllers active](docs/assets/images/controllers_active_terminal.png)
+![Topic checks](docs/assets/images/topics_check_terminal.png)
+
+## Architecture View
+
+![ROS node graph](docs/assets/images/arch_node_graph.png)
+
+## Reproducibility Snapshot
+
+![Build and source steps](docs/assets/images/repro_build_steps.png)
 
 ## Key Files
 
