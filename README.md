@@ -87,6 +87,8 @@ This starts `teleop_twist_keyboard` with:
 - Remap: `/cmd_vel` -> `/diff_drive_controller/cmd_vel`
 - Parameter: `stamped:=true`
 
+![Teleop demo](docs/assets/gifs/demo_teleop_control.gif)
+
 ## Useful Checks
 
 ```bash

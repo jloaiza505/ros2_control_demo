@@ -120,6 +120,8 @@ source install/setup.bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel -p stamped:=true
 ```
 
+![Teleop control demo](assets/gifs/demo_teleop_control.gif)
+
 Key files for replication:
 - `src/my_robot_description/urdf/my_robot.urdf.xacro`
 - `src/my_robot_description/urdf/mobile_base.xacro`
