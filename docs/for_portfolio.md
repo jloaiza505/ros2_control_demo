@@ -14,7 +14,6 @@ The goal of this demo is to build a complete but minimal ROS 2 pipeline for a di
 
 The main engineering challenge is ensuring that description, control, and visualization all use the same robot definition and frame conventions so the system behaves coherently.
 
-`[Image placeholder: Diagram of the problem context and expected data flow]`
 
 ## System Architecture
 The workspace is split into two packages:
@@ -34,7 +33,7 @@ Runtime architecture in full bringup:
 
 ## Technical Implementation
 ### Software Stack
-- ROS 2 Humble
+- ROS 2 Jazzy
 - `ament_cmake` + `colcon`
 - `xacro`, `robot_state_publisher`, `joint_state_publisher_gui`, `rviz2`
 - `controller_manager`, `ros2_control`, `ros2_controllers`
@@ -46,7 +45,7 @@ Runtime architecture in full bringup:
 - Xacro modularization:
   - `my_robot.urdf.xacro` composes smaller files (`common_properties`, base model, `ros2_control` block) for maintainability.
 - Single source of truth for robot description:
-  - Both `robot_state_publisher` and `ros2_control_node` receive `robot_description` from the same Xacro command in `my_robot.launch.xml`, reducing TF/control mismatches.
+  - `robot_state_publisher` receives `robot_description` from the same Xacro command in `my_robot.launch.xml`, reducing TF/control mismatches.
 - Control interfaces chosen per wheel joint:
   - Command interface: velocity.
   - State interfaces: position and velocity.
@@ -58,19 +57,13 @@ Runtime architecture in full bringup:
 - Explicit teleop command routing:
   - Teleop command remaps `/cmd_vel` to `/diff_drive_controller/cmd_vel` and enables stamped Twist messages (`stamped:=true`).
 
-`[Image placeholder: Snippet screenshot of launch file showing shared robot_description injection]`
-
 ## Key Challenges and Solutions
-- Challenge: TF errors due to inconsistent robot descriptions between publishers and control.
-  - Solution: Pass the same Xacro-generated `robot_description` into both `robot_state_publisher` and `ros2_control_node`.
 - Challenge: Controllers loading but no useful wheel state feedback.
   - Solution: Explicitly define wheel joint command/state interfaces in `mobile_base.ros2_control.xacro`.
 - Challenge: Differing naming conventions causing silent mismatches.
   - Solution: Keep wheel joint names consistent across URDF and controller YAML (`base_left_wheel_joint`, `base_right_wheel_joint`).
 - Challenge: Debugging startup and controller activation sequence.
   - Solution: Use dedicated spawner nodes for `joint_state_broadcaster` and `diff_drive_controller` in launch.
-
-`[Image placeholder: Troubleshooting flowchart for TF/joint/controller issues]`
 
 ## Results
 The demo delivers a working end-to-end ROS 2 control pipeline where:
@@ -90,12 +83,12 @@ Useful runtime checks:
 
 ## Reproducibility
 Environment used for development/testing:
-- WSL2 (Ubuntu + ROS 2 Humble)
+- WSL2 (Ubuntu + ROS 2 Jazzy)
 
 From workspace root:
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 colcon build
 source install/setup.bash
 ```
@@ -115,7 +108,7 @@ ros2 launch my_robot_bringup my_robot.launch.xml
 Keyboard teleoperation (new terminal):
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel -p stamped:=true
 ```
@@ -139,5 +132,3 @@ Key files for replication:
   - CI checks for Xacro/URDF consistency.
 - Add teleoperation + trajectory tests (`cmd_vel` workflows and controller performance metrics).
 - Improve documentation with finalized architecture diagrams and benchmark plots (latency, odom drift, controller stability).
-
-`[Image placeholder: Roadmap graphic for next iterations]`

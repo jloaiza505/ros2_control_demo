@@ -16,7 +16,7 @@ set(_my_robot_description_CONFIG_INCLUDED TRUE)
 
 # output package information
 if(NOT my_robot_description_FIND_QUIETLY)
-  message(STATUS "Found my_robot_description: 0.0.0 (${my_robot_description_DIR})")
+  message(STATUS "Found my_robot_description: 0.1.0 (${my_robot_description_DIR})")
 endif()
 
 # warn when using a deprecated package
@@ -27,7 +27,7 @@ if(NOT "" STREQUAL "")
     set(_msg "${_msg} ()")
   endif()
   # optionally quiet the deprecation message
-  if(NOT ${my_robot_description_DEPRECATED_QUIET})
+  if(NOT my_robot_description_DEPRECATED_QUIET)
     message(DEPRECATION "${_msg}")
   endif()
 endif()

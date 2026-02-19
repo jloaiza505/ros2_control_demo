@@ -2,7 +2,7 @@
 # ament_cmake_core/cmake/uninstall_target/ament_cmake_uninstall_target.cmake.in
 
 function(ament_cmake_uninstall_target_remove_empty_directories path)
-  set(install_space "/home/james/ros2_projects/ros2_diff_drive_control_demo/install/my_robot_description")
+  set(install_space "/home/jaime/ros2_projects/ros2-diff-drive-control-demo/install/my_robot_description")
   if(install_space STREQUAL "")
     message(FATAL_ERROR "The CMAKE_INSTALL_PREFIX variable must not be empty")
   endif()
@@ -29,7 +29,7 @@ function(ament_cmake_uninstall_target_remove_empty_directories path)
 endfunction()
 
 # uninstall files installed using the standard install() function
-set(install_manifest "/home/james/ros2_projects/ros2_diff_drive_control_demo/build/my_robot_description/install_manifest.txt")
+set(install_manifest "/home/jaime/ros2_projects/ros2-diff-drive-control-demo/build/my_robot_description/install_manifest.txt")
 if(NOT EXISTS "${install_manifest}")
   message(FATAL_ERROR "Cannot find install manifest: ${install_manifest}")
 endif()

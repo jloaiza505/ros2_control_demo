@@ -25,8 +25,8 @@ ros2_control_demo/
 
 ## Prerequisites
 
-- Ubuntu with ROS 2 Humble installed
-- Developed and tested on WSL2 (Ubuntu + ROS 2 Humble)
+- Ubuntu with ROS 2 installed
+- Tested on ROS 2 Jazzy
 - `colcon` available
 - ROS 2 packages used by this workspace:
   - `xacro`
@@ -36,6 +36,8 @@ ros2_control_demo/
   - `controller_manager`
   - `ros2_control`
   - `ros2_controllers`
+  - `diff_drive_controller`
+  - `joint_state_broadcaster`
   - `teleop_twist_keyboard`
 
 ## Build
@@ -43,7 +45,7 @@ ros2_control_demo/
 Run from the workspace root:
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 colcon build
 source install/setup.bash
 ```
@@ -53,7 +55,7 @@ source install/setup.bash
 ### 1. Visualize Description Only
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 ros2 launch my_robot_description display.launch.xml
 ```
@@ -61,7 +63,7 @@ ros2 launch my_robot_description display.launch.xml
 ### 2. Full Bringup (ros2_control + RViz2)
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 ros2 launch my_robot_bringup my_robot.launch.xml
 ```
@@ -78,7 +80,7 @@ This launch starts:
 In a new terminal (while full bringup is running):
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel -p stamped:=true
 ```
@@ -121,11 +123,10 @@ ros2 topic list | grep diff_drive
 - Launch file changes not reflected:
   - Rebuild and re-source:
     ```bash
-    colcon build
+    colcon build --base-paths src
     source install/setup.bash
     ```
 
 ## Notes
 
 - `.gitignore` excludes generated ROS 2 workspace artifacts (`build/`, `install/`, `log/`) and editor/system files.
-- `package.xml` files still contain placeholder description/license fields; update them before publishing.
